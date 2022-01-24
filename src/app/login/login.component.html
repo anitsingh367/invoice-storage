@@ -1,0 +1,35 @@
+<div class="container-height" fxLayoutAlign="center center">
+  <mat-card fxLayout="column" fxLayoutGap="20px">
+    <mat-card-title> Login </mat-card-title>
+    <mat-card-content>
+      <form fxLayout="column" [formGroup]="loginForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            type="email"
+            placeholder="Enter your registered E-mail"
+          />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Enter your password"
+          />
+          <mat-icon class="clickable" matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button color="primary" mat-flat-button (click)="onLogin()">Login</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
