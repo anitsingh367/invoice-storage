@@ -1,0 +1,11 @@
+<div class="preview-container">
+  <button
+    (click)="removeImg()"
+    class="preview-container__btn"
+    mat-mini-fab
+    color="warn"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <img class="preview-container__img" [src]="imgSrc" width="50%" height="50%" />
+</div>

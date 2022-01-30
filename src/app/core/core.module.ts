@@ -15,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FileUploadPreviewComponent } from './file-upload-preview/file-upload-preview.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
   },
 ];
 @NgModule({
-  declarations: [BaseComponent, AddInvoiceComponent, SearchInvoiceComponent],
+  declarations: [BaseComponent, AddInvoiceComponent, SearchInvoiceComponent, FileUploadPreviewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

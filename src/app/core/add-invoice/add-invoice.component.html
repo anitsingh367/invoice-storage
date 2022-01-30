@@ -1,54 +1,66 @@
-<div class="base-page">
-  <p>new-product-form works!</p>
-  <form fxLayout="column" fxLayoutGap="2%" [formGroup]="createInvoice">
-    <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input type="text" matInput formControlName="name" />
-      <mat-error
-        *ngIf="
-          !createInvoice.controls['name'].valid &&
-          createInvoice.controls['name'].touched
-        "
-        >Name is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Phone Number</mat-label>
-      <input type="number" matInput formControlName="pNumber" />
-      <mat-error
-        *ngIf="
-          !createInvoice.controls['pnumber'].valid &&
-          createInvoice.controls['pnumber'].touched
-        "
-        >Phone Number is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Invoice</mat-label>
-      <input
-        matInput
-        type="image"
-        accept="image/*"
-        formControlName="invoiceImg"
-      />
-      <mat-error
-        *ngIf="
-          !createInvoice.controls['invoiceImg'].valid &&
-          createInvoice.controls['invoiceImg'].touched
-        "
-      >
-        Image Link is required
-      </mat-error>
-    </mat-form-field>
+<form fxLayout="column" fxLayoutGap="16px" [formGroup]="createInvoice">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput formControlName="name" />
+    <mat-error *ngIf="createInvoice.get('name')?.hasError('required')"
+      >Name is required
+    </mat-error>
+  </mat-form-field>
 
-    <button
-      mat-raised-button
-      color="accent"
-      type="submit"
-      (click)="createNewProduct()"
-      [disabled]="!createInvoice.valid"
+  <mat-form-field appearance="fill">
+    <mat-label>Phone Number</mat-label>
+    <input type="tel" matInput formControlName="pNumber" />
+    <mat-error *ngIf="createInvoice.get('pNumber')?.hasError('required')"
+      >Phone Number is required
+    </mat-error>
+    <mat-error *ngIf="createInvoice.get('pNumber')?.hasError('pattern')"
+      >Please enter a valid phone number</mat-error
     >
-      Save
-    </button>
-  </form>
-</div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput formControlName="email" />
+    <mat-error *ngIf="createInvoice.get('email')?.hasError('required')"
+      >Email is required
+    </mat-error>
+    <mat-error *ngIf="createInvoice.get('email')?.hasError('email')"
+      >Please enter a valid e-mail address</mat-error
+    >
+  </mat-form-field>
+
+  <button
+    fxFlexAlign="start"
+    type="button"
+    mat-raised-button
+    color="accent"
+    (click)="uploadFile.click()"
+  >
+    Invoice Image *
+  </button>
+
+  <input
+    #uploadFile
+    id="uploadFile"
+    type="file"
+    accept="image/*"
+    formControlName="invoiceImg"
+    (change)="onFileChange($event)"
+    hidden
+  />
+  <app-file-upload-preview
+    [imgSrc]="imgSrc"
+    *ngIf="imgSrc"
+    (removeItem)="removeImg()"
+  ></app-file-upload-preview>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="createNewInvoice()"
+    [disabled]="!createInvoice.valid"
+  >
+    Save
+  </button>
+</form>
